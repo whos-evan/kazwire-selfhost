@@ -34,7 +34,7 @@ if [ "$proceed" = "n" ]; then
 fi
 
 # clone the repository
-git clone https://github.com/kazwire/kazwire.git
+git clone https://github.com/whos-evan/kazwire.git
 
 # prompt the user to change the domain name in the caddyfile
 echo "Please change the domain name in the Caddyfile to your domain name that is pointed to this server. Please also ensure that the server has the ports 443 and 80 open. Press enter to continue."

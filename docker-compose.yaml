@@ -1,0 +1,29 @@
+version: "3"
+services:
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    command: caddy run --config /etc/caddy/Caddyfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+  kazwire:
+    build: ./kazwire
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./kazwire:/app
+  bare-server:
+    build: ./bare-server
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./bare-server:/app
+
+volumes:
+  caddy_data:
