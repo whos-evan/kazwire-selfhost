@@ -19,14 +19,26 @@ if ! [ -x "$(command -v git)" ]; then
   exit 1
 fi
 
+# check for nano
+if ! [ -x "$(command -v nano)" ]; then
+  echo 'Error: Nano must be installed for this script to work. Please refer to the documentation for details.' >&2
+  exit 1
+fi
+
 # check to make sure that the user is running this script as root
 if [ "$(id -u)" != "0" ]; then
   echo "This script must be run as root. Please run it as root." 1>&2
   exit 1
 fi
 
+# ensure the user has at least 10 GB of free space
+if [ "$(df -BG / | awk 'NR==2 {print $4}' | sed 's/G//')" -lt "10" ]; then
+  echo "You do not have enough free space to run this script. Please free up at least 10 GB of space and try again." 1>&2
+  exit 1
+fi
+
 # ask the user if they would like to proceed
-echo "This script will install the latest version of the Open Source version of the Kazwire. It will also install bare-server and Caddy. Would you like to proceed? (Y/n)"
+echo "This script will install the latest version of the open source version of the Kazwire. It will also install bare-server and Caddy. Would you like to proceed? (Y/n)"
 read -r proceed
 if [ "$proceed" = "n" ]; then
   echo "Exiting..."
@@ -42,7 +54,7 @@ read -r
 nano caddy/Caddyfile
 
 # prompt the user to continue
-echo "Do you want to continue? (Y/n)"
+echo "Do you want to continue with the installation? (Y/n)"
 read -r proceed
 if [ "$proceed" = "n" ]; then
   echo "Exiting..."
