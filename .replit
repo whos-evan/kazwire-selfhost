@@ -1,1 +1,1 @@
-run = "bash ./replit.sh"
+run = "caddy reverse-proxy --from kazwire.com --to localhost"
