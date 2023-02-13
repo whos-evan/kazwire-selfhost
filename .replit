@@ -1,0 +1,5 @@
+run = "cd replit && bash start.sh"
+entrypoint = "replit/index.js"
+
+[nix]
+channel = "stable-22_11"
