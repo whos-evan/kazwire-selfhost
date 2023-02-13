@@ -1,1 +1,5 @@
-run = "caddy reverse-proxy --from kazwire.com --to localhost"
+run = "cd replit && bash start.sh"
+entrypoint = "replit/index.js"
+
+[nix]
+channel = "stable-22_11"
